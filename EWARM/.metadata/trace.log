@@ -1,0 +1,10 @@
+# !SESSION 2019-12-03 01:51:05.269
+# version: 1.1
+# verbose: true
+# The following option strings are specified for this debug session:
+# 	null
+| main | 2019-12-03 01:51:05.269 | com.iar.ide.common | /debug | com.iar.ide.common.PlatformLoggerDelegate | traceFile | 74 | com.iar.cdt.arm.toolchain.cmsis.adapter INFO Using CMSIS pack repositories: http://links.iar.com/cmsis/pack |
+| Worker-4 | 2019-12-03 02:32:01.494 | com.iar.ide.common | /debug | com.iar.ide.common.PlatformLoggerDelegate | traceFile | 74 | com.iar.cdt.arm.toolchain.cmsis.adapter INFO Performing pack conversion... |
+| Worker-4 | 2019-12-03 02:32:14.375 | com.iar.ide.common | /debug | com.iar.ide.common.PlatformLoggerDelegate | traceFile | 74 | com.iar.cdt.arm.toolchain.cmsis.adapter INFO Pack has been converted. |
+| Worker-2 | 2019-12-03 02:33:01.402 | com.iar.ide.common | /debug | com.iar.ide.common.PlatformLoggerDelegate | traceFile | 74 | com.iar.cdt.arm.toolchain.cmsis.adapter INFO Performing pack conversion... |
+| Worker-2 | 2019-12-03 02:33:12.541 | com.iar.ide.common | /debug | com.iar.ide.common.PlatformLoggerDelegate | traceFile | 74 | com.iar.cdt.arm.toolchain.cmsis.adapter INFO Pack has been converted. |
