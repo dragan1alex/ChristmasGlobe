@@ -12,6 +12,7 @@ void rotate();
 void breathe();
 void singleColors();
 void loop();
+void randomFadeOut();
 void checkModes();
 void checkButton();
 

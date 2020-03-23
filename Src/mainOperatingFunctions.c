@@ -8,6 +8,9 @@ void statusLed(uint8_t status){
 uint32_t f1=9, f2=10;   // f1/f2
 uint8_t led[6];
 
+/* Set a LED PWM value
+ * Args: - n: led number (1-6)
+ * 		 - val: PWM value (0-100) */
 void setLed(uint8_t n, uint32_t val){
 	led[n-1] = val;
 	switch(n){
@@ -43,27 +46,6 @@ void setLed(uint8_t n, uint32_t val){
 }
 
 uint32_t getLed(uint8_t nr){
-//	switch(nr){
-//		case 1:
-//			return __HAL_TIM_GET_COMPARE(&htim2, TIM_CHANNEL_1);
-//			break;
-//		case 2:
-//			return __HAL_TIM_GET_COMPARE(&htim21, TIM_CHANNEL_2)*f2/f1;
-//			break;
-//		case 3:
-//			return __HAL_TIM_GET_COMPARE(&htim21, TIM_CHANNEL_1);
-//			break;
-//		case 4:
-//			return __HAL_TIM_GET_COMPARE(&htim22, TIM_CHANNEL_2);
-//			break;
-//		case 5:
-//			return __HAL_TIM_GET_COMPARE(&htim22, TIM_CHANNEL_1)*f2/f1;
-//			break;
-//		case 6:
-//			return __HAL_TIM_GET_COMPARE(&htim2, TIM_CHANNEL_2);
-//			break;
-//		default: return 0;break;
-//		}
 		return led[nr-1];
 }
 

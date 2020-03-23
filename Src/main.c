@@ -181,6 +181,7 @@ int main(void)
   xTaskCreate(breathe, "breathe",64,NULL,5,NULL);
   xTaskCreate(singleColors, "singleColors", 64, null, 5, null);
   xTaskCreate(loop, "loop", 64, NULL, 5, NULL);
+  xTaskCreate(randomFadeOut, "randomFadeOut", 64, null, 5, null);
 
   xTaskCreate(checkButton, "chkBtn", 100, NULL, 5, NULL);
   xTaskCreate(getADC, "adc", 80, NULL, 6, NULL);
@@ -192,12 +193,8 @@ int main(void)
 
   if(debugRunCurrent == 0){
 	  checkModes();
-//	  vTaskResume(xTaskGetHandle("fadeLedsOut"));
-//	  vTaskResume(xTaskGetHandle("rotate"));
-
   }
   vTaskResume(xTaskGetHandle("chkBtn"));
-  //vTaskResume(xTaskGetHandle("adc"));
 
   /* USER CODE END RTOS_THREADS */
 

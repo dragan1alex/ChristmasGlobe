@@ -1,5 +1,10 @@
+
 #include "main.h"
+#include "cmsis_os.h"
 #include "globalVariables.h"
+#include "mainOperatingFunctions.h"
+#include "tasks.h"
+#include "clock.h"
 
 /* ADC conversion complete flag */
 volatile uint8_t convCpt = 0;

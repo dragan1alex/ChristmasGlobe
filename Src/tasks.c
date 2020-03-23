@@ -9,9 +9,11 @@
 #include "main.h"
 #include "clock.h"
 #include "globalVariables.h"
+#include "mainOperatingFunctions.h"
+#include "stdlib.h"
 
 int fadeDelay = 2;
-uint8_t mode = 0, maxModes = 4;
+uint8_t mode = 0, maxModes = 5;
 
  void decreaseBrightness(){
 	for(;;){
@@ -27,6 +29,7 @@ uint8_t mode = 0, maxModes = 4;
 	 vTaskSuspend(xTaskGetHandle("breathe"));
 	 vTaskSuspend(xTaskGetHandle("singleColors"));
 	 vTaskSuspend(xTaskGetHandle("loop"));
+	 vTaskSuspend(xTaskGetHandle("randomFadeOut"));
 
 }
 
@@ -43,8 +46,10 @@ uint8_t mode = 0, maxModes = 4;
 
  void rotate(){
 	 while(1){
-		 for(uint8_t i=1;i<=6;i++){
-			 for(uint8_t j=1;j<=50;j++){
+		 for(uint8_t i=1;i<=6;i++)
+		 {
+			 for(uint8_t j=1;j<=50;j++)
+			 {
 				 setLed(i, 2*(uint8_t)(j*brightnessMultiplier));
 				 vTaskDelay(convDelay(1));
 			 }
@@ -55,7 +60,8 @@ uint8_t mode = 0, maxModes = 4;
 
  }
 
- void breathe(){
+ void breathe()
+ {
 	 while(1)
 	 {
 		 while(getLed(1) > 1) vTaskDelay(10);
@@ -111,8 +117,10 @@ uint8_t mode = 0, maxModes = 4;
 	 }
  }
 
- void loop(){
-	 while(1){
+ void loop()
+ {
+	 while(1)
+	 {
 		 for(uint8_t i=0;i<=5;i++)
 		 {
 			 for(uint8_t j=0;j<=5;j++)
@@ -134,6 +142,23 @@ uint8_t mode = 0, maxModes = 4;
 			 }
 			 vTaskDelay(500);
 		 }
+	 }
+ }
+
+ void randomFadeOut()
+ {
+	 static uint8_t currentLed = 1;
+	 static uint8_t randPWM = 0;
+	 static uint8_t currentDelay = 100;
+	 static int currentRandNumber;
+	 while(1)
+	 {
+		 currentRandNumber = rand_r(&randomSeed);
+		 currentLed = currentRandNumber % 6 + 1;
+		 randPWM = currentRandNumber % 41 + 60;
+		 currentDelay = currentRandNumber % 200 + 50;
+		 setLed(currentLed, randPWM * brightnessMultiplier);
+		 vTaskDelay(currentDelay * 15);
 	 }
  }
 
@@ -164,13 +189,20 @@ uint8_t mode = 0, maxModes = 4;
 		 ChangeSystemClock(2);
 		 vTaskResume(xTaskGetHandle("loop"));
 		 break;
+	 case 4:
+		 ChangeSystemClock(2);
+		 vTaskResume(xTaskGetHandle("randomFadeOut"));
+		 vTaskResume(xTaskGetHandle("fadeLedsOut"));
+		 fadeDelay = 40;
+		 break;
 	 default: ChangeSystemClock(2);vTaskResume(xTaskGetHandle("rotate"));break;
 	 }
  }
 
  void checkButton()
  {
-	 while(1){
+	 while(1)
+	 {
 		 if(HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_8) == GPIO_PIN_RESET)
 		 {
 			 mode++;
