@@ -1,16 +1,5 @@
-/*
- * mainOperatingFunctions.h
- *
- *  Created on: Dec 12, 2019
- *      Author: Andrei
- */
 
-#ifndef MAINOPERATINGFUNCTIONS_H_
-#define MAINOPERATINGFUNCTIONS_H_
-
-
-
-#endif /* MAINOPERATINGFUNCTIONS_H_ */
+#include "globalVariables.h"
 
 void statusLed(uint8_t status){
 	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_2, status);
@@ -127,16 +116,14 @@ void decreaseLed(uint8_t n, uint8_t minVal){
 	return;
 }
 
-static void decreaseAll(uint8_t minVal){
+void decreaseAll(uint8_t minVal){
 	for(uint8_t i=1;i<=6;i++){
 		decreaseLed(i, minVal);
 	}
 	return;
 }
 
-
-
-static void enableTimers(){
+void enableTimers(){
   HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_1);
   HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_2);
   HAL_TIM_PWM_Start(&htim21, TIM_CHANNEL_1);

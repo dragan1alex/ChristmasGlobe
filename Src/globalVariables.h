@@ -1,2 +1,0 @@
-
-float brightnessMultiplier=1;

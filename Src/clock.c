@@ -1,17 +1,4 @@
-/*
- * clock.h
- *
- *  Created on: Dec 12, 2019
- *      Author: Andrei
- */
-
-#ifndef CLOCK_H_
-#define CLOCK_H_
-
-
-
-#endif /* CLOCK_H_ */
-
+#include "main.h"
 
 void ChangeSystemClock(uint8_t speed)
 {

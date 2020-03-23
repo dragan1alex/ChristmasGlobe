@@ -5,17 +5,15 @@
  *      Author: Andrei
  */
 
-#ifndef TASKS_H_
-#define TASKS_H_
+#include "cmsis_os.h"
+#include "main.h"
+#include "clock.h"
+#include "globalVariables.h"
 
+int fadeDelay = 2;
+uint8_t mode = 0, maxModes = 4;
 
-
-#endif /* TASKS_H_ */
-
-
-static int fadeDelay = 2;
-
- static void decreaseBrightness(){
+ void decreaseBrightness(){
 	for(;;){
 		decreaseAll(1);
 		vTaskDelay((int)(fadeDelay/brightnessMultiplier));
@@ -33,20 +31,17 @@ static int fadeDelay = 2;
 }
 
  void suspendAll(){
-	 vTaskDelete(defaultTaskHandle);
 	 vTaskSuspend(xTaskGetHandle("chkBtn"));
 	 vTaskSuspend(xTaskGetHandle("adc"));
 	 vTaskSuspend(xTaskGetHandle("calc"));
 	 suspendModes();
  }
 
-
-
  uint32_t convDelay(uint32_t d){
 	 return (uint32_t)( (float)d/(float)brightnessMultiplier);
  }
 
- static void rotate(){
+ void rotate(){
 	 while(1){
 		 for(uint8_t i=1;i<=6;i++){
 			 for(uint8_t j=1;j<=50;j++){
@@ -60,22 +55,26 @@ static int fadeDelay = 2;
 
  }
 
- static void breathe(){
-	 while(1){
+ void breathe(){
+	 while(1)
+	 {
 		 while(getLed(1) > 1) vTaskDelay(10);
 		 vTaskDelay(1000);
 		 //vTaskSuspend(xTaskGetHandle("fadeLedsOut"));
-		 for(uint8_t i=1;i<=50;i++){
+		 for(uint8_t i=1;i<=50;i++)
+		 {
 			 setLed(3, (uint8_t)(i*2*brightnessMultiplier));
 			 setLed(4, (uint8_t)(i*2*brightnessMultiplier));
 			 vTaskDelay(convDelay(2));
 		 }
-		 for(uint8_t i=1;i<=50;i++){
+		 for(uint8_t i=1;i<=50;i++)
+		 {
 			 setLed(2, (uint8_t)(i*2*brightnessMultiplier));
 			 setLed(5, (uint8_t)(i*2*brightnessMultiplier));
 			 vTaskDelay(convDelay(2));
 		 }
-		 for(uint8_t i=1;i<=50;i++){
+		 for(uint8_t i=1;i<=50;i++)
+		 {
 			 setLed(1, (uint8_t)(i*2*brightnessMultiplier));
 			 setLed(6, (uint8_t)(i*2*brightnessMultiplier));
 			 vTaskDelay(convDelay(2));
@@ -84,22 +83,27 @@ static int fadeDelay = 2;
 	 }
  }
 
- static void singleColors(){
-	 while(1){
+ void singleColors()
+ {
+	 while(1)
+	 {
 		 while(getLed(3) > (20*brightnessMultiplier)) vTaskDelay(1);
-		 for(uint8_t i=1;i<=33;i++){
+		 for(uint8_t i=1;i<=33;i++)
+		 {
 			 setLed(1, i*3*brightnessMultiplier);
 			 setLed(4, i*3*brightnessMultiplier);
 			 vTaskDelay(convDelay(2));
 		 }
 		 while(getLed(1) > (20*brightnessMultiplier)) vTaskDelay(1);
-		 for(uint8_t i=1;i<=33;i++){
+		 for(uint8_t i=1;i<=33;i++)
+		 {
 			 setLed(2, i*3*brightnessMultiplier);
 			 setLed(5, i*3*brightnessMultiplier);
 			 vTaskDelay(convDelay(2));
 		 }
 		 while(getLed(2) > (20*brightnessMultiplier)) vTaskDelay(1);
-		 for(uint8_t i=1;i<=33;i++){
+		 for(uint8_t i=1;i<=33;i++)
+		 {
 			 setLed(3, i*3*brightnessMultiplier);
 			 setLed(6, i*3*brightnessMultiplier);
 			 vTaskDelay(convDelay(2));
@@ -107,18 +111,23 @@ static int fadeDelay = 2;
 	 }
  }
 
- static void loop(){
+ void loop(){
 	 while(1){
-		 for(uint8_t i=0;i<=5;i++){
-			 for(uint8_t j=0;j<=5;j++){
-				 for(uint8_t k=1;k<=50;k++){
+		 for(uint8_t i=0;i<=5;i++)
+		 {
+			 for(uint8_t j=0;j<=5;j++)
+			 {
+				 for(uint8_t k=1;k<=50;k++)
+				 {
 					 setLed((i+j) % 6 + 1, 2 * k * brightnessMultiplier);
 					 vTaskDelay(1);
 				 }
 			 }
 			 vTaskDelay(50);
-			 for(uint8_t j=1;j<=6;j++){
-				 for(uint8_t k=50;k>=1;k--){
+			 for(uint8_t j=1;j<=6;j++)
+			 {
+				 for(uint8_t k=50;k>=1;k--)
+				 {
 					 setLed((i+j) % 6 + 1, 2 * k * brightnessMultiplier);
 					 vTaskDelay(2);
 				 }
@@ -128,11 +137,11 @@ static int fadeDelay = 2;
 	 }
  }
 
- uint8_t mode = 0, maxModes = 4;
-
- void checkModes(){
+ void checkModes()
+ {
 	 suspendModes();
-	 switch(mode){
+	 switch(mode)
+	 {
 	 case 0:
 		 ChangeSystemClock(2);
 		 vTaskResume(xTaskGetHandle("fadeLedsOut"));
@@ -159,9 +168,11 @@ static int fadeDelay = 2;
 	 }
  }
 
- static void checkButton(){
+ void checkButton()
+ {
 	 while(1){
-		 if(HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_8) == GPIO_PIN_RESET){
+		 if(HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_8) == GPIO_PIN_RESET)
+		 {
 			 mode++;
 			 mode %= maxModes;
 			 checkModes();

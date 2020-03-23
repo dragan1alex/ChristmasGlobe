@@ -24,8 +24,6 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#define null NULL
-#define VREFINT_CAL *((uint16_t*)0x1FF80078)
 
 /* USER CODE END Includes */
 
@@ -189,6 +187,7 @@ int main(void)
   xTaskCreate(calcValues, "calc", 80, null, 5, null);
   xTaskCreate(checkADC, "chkadc", 64, null, 6, null);
 
+  vTaskDelete(defaultTaskHandle); /* Delete the default task spawned by STM32CubeMX */
   suspendAll();
 
   if(debugRunCurrent == 0){
@@ -209,7 +208,7 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  while (1)
+  while(1)
   {
     /* USER CODE END WHILE */
 
