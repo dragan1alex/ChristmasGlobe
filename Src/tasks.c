@@ -155,7 +155,7 @@ uint8_t mode = 0, maxModes = 5;
 	 {
 		 currentRandNumber = rand_r(&randomSeed);
 		 currentLed = currentRandNumber % 6 + 1;
-		 randPWM = currentRandNumber % 41 + 60;
+		 randPWM = currentRandNumber % 31 + 70;
 		 currentDelay = currentRandNumber % 200 + 50;
 		 setLed(currentLed, randPWM * brightnessMultiplier);
 		 vTaskDelay(currentDelay * 15);
