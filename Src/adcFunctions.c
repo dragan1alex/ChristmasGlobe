@@ -10,10 +10,10 @@
 volatile uint8_t convCpt = 0;
 
 /* Raw ADC variables */
-static uint32_t adc[5];
-static uint32_t VCCmV, currentuA;
-static float currentmA, vccRes,vcc,current;
-static uint32_t ran[5] = {ADC_CHANNEL_0, ADC_CHANNEL_6, ADC_CHANNEL_7, ADC_CHANNEL_VREFINT, ADC_CHANNEL_TEMPSENSOR};
+uint32_t adc[5];
+uint32_t VCCmV, currentuA;
+float currentmA, vccRes,vcc,current;
+uint32_t ran[5] = {ADC_CHANNEL_0, ADC_CHANNEL_6, ADC_CHANNEL_7, ADC_CHANNEL_VREFINT, ADC_CHANNEL_TEMPSENSOR};
 uint8_t debugRunCurrent = 0;
 
 /* Delay between ADC data acquisition */

@@ -147,18 +147,25 @@ uint8_t mode = 0, maxModes = 5;
 
  void randomFadeOut()
  {
-	 static uint8_t currentLed = 1;
+	 static uint8_t currentLed = 0;
 	 static uint8_t randPWM = 0;
 	 static uint8_t currentDelay = 100;
 	 static int currentRandNumber;
+	 randomSeed = adc[0] + adc[1] + adc[2] + adc[3];
+	 static uint8_t prevLed[2];
 	 while(1)
 	 {
-		 currentRandNumber = rand_r(&randomSeed);
-		 currentLed = currentRandNumber % 6 + 1;
+		 prevLed[1] = prevLed[0];
+		 prevLed[0] = currentLed;
+		 while(currentLed == prevLed[0] || currentLed == prevLed[1])
+		 {
+			 currentRandNumber = rand_r(&randomSeed);
+			 currentLed = currentRandNumber % 6 + 1;
+		 }
 		 randPWM = currentRandNumber % 31 + 70;
-		 currentDelay = currentRandNumber % 200 + 50;
+		 currentDelay = currentRandNumber % 150 + 50;
 		 setLed(currentLed, randPWM * brightnessMultiplier);
-		 vTaskDelay(currentDelay * 15);
+		 vTaskDelay(currentDelay * 10);
 	 }
  }
 
