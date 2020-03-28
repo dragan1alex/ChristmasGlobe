@@ -176,7 +176,7 @@ int main(void)
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
 
-  xTaskCreate(decreaseBrightness, "fadeLedsOut", 64, NULL, 5, NULL);
+  xTaskCreate(fadeLedsOut, "fadeLedsOut", 64, NULL, 5, NULL);
   xTaskCreate(rotate, "rotate", 64, NULL, 5, NULL);
   xTaskCreate(breathe, "breathe",64,NULL,5,NULL);
   xTaskCreate(singleColors, "singleColors", 64, null, 5, null);

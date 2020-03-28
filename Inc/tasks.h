@@ -2,9 +2,9 @@
 #define TASKS_H_
 
 extern int fadeDelay;
-extern uint8_t mode, maxModes;
+extern uint8_t mode, maxModes, minPWM;
 
-void decreaseBrightness();
+void fadeLedsOut();
 void suspendModes();
 void suspendAll();
 uint32_t convDelay(uint32_t d);

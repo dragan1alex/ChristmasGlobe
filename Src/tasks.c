@@ -12,12 +12,13 @@
 #include "mainOperatingFunctions.h"
 #include "stdlib.h"
 
+uint8_t mode = 4, maxModes = 5;
 int fadeDelay = 2;
-uint8_t mode = 0, maxModes = 5;
+uint8_t minPWM = 0;
 
- void decreaseBrightness(){
+ void fadeLedsOut(){
 	for(;;){
-		decreaseAll(1);
+		decreaseAll(minPWM);
 		vTaskDelay((int)(fadeDelay/brightnessMultiplier));
 	}
 
@@ -162,8 +163,8 @@ uint8_t mode = 0, maxModes = 5;
 			 currentRandNumber = rand_r(&randomSeed);
 			 currentLed = currentRandNumber % 6 + 1;
 		 }
-		 randPWM = currentRandNumber % 31 + 70;
-		 currentDelay = currentRandNumber % 150 + 50;
+		 randPWM = currentRandNumber % 21 + 80;
+		 currentDelay = currentRandNumber % 120 + 50;
 		 setLed(currentLed, randPWM * brightnessMultiplier);
 		 vTaskDelay(currentDelay * 10);
 	 }
@@ -176,18 +177,21 @@ uint8_t mode = 0, maxModes = 5;
 	 {
 	 case 0:
 		 ChangeSystemClock(2);
+		 minPWM = 1;
 		 vTaskResume(xTaskGetHandle("fadeLedsOut"));
 		 vTaskResume(xTaskGetHandle("rotate"));
 		 fadeDelay = 3;
 		 break;
 	 case 1:
 		 ChangeSystemClock(2);
+		 minPWM = 1;
 		 vTaskResume(xTaskGetHandle("fadeLedsOut"));
 		 vTaskResume(xTaskGetHandle("breathe"));
 		 fadeDelay = 14;
 		 break;
 	 case 2:
 		 ChangeSystemClock(2);
+		 minPWM = 1;
 		 vTaskResume(xTaskGetHandle("fadeLedsOut"));
 		 vTaskResume(xTaskGetHandle("singleColors"));
 		 fadeDelay = 6;
@@ -198,6 +202,7 @@ uint8_t mode = 0, maxModes = 5;
 		 break;
 	 case 4:
 		 ChangeSystemClock(2);
+		 minPWM = 0;
 		 vTaskResume(xTaskGetHandle("randomFadeOut"));
 		 vTaskResume(xTaskGetHandle("fadeLedsOut"));
 		 fadeDelay = 40;
