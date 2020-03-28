@@ -176,6 +176,7 @@ int main(void)
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
 
+   /* xTaskCreate(functionName, taskName, stackSize, parameters, priority, taskHandlePointer) */
   xTaskCreate(fadeLedsOut, "fadeLedsOut", 64, NULL, 5, NULL);
   xTaskCreate(rotate, "rotate", 64, NULL, 5, NULL);
   xTaskCreate(breathe, "breathe",64,NULL,5,NULL);
@@ -188,7 +189,8 @@ int main(void)
   xTaskCreate(calcValues, "calc", 80, null, 5, null);
   xTaskCreate(checkADC, "chkadc", 64, null, 6, null);
 
-  vTaskDelete(defaultTaskHandle); /* Delete the default task spawned by STM32CubeMX */
+  /* Delete the default task spawned by STM32CubeMX */
+  vTaskDelete(defaultTaskHandle);
   suspendAll();
 
   if(debugRunCurrent == 0){
