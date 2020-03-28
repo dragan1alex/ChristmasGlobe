@@ -1,0 +1,11 @@
+tasks.c:19:7:fadeLedsOut	16	static
+tasks.c:27:7:suspendModes	8	static
+tasks.c:37:7:suspendAll	8	static
+tasks.c:44:11:convDelay	8	static
+tasks.c:48:7:rotate	16	static
+tasks.c:64:7:breathe	24	static
+tasks.c:93:7:singleColors	24	static
+tasks.c:121:7:loop	32	static
+tasks.c:149:7:randomFadeOut	40	static
+tasks.c:173:7:checkModes	32	static
+tasks.c:214:7:checkButton	40	static

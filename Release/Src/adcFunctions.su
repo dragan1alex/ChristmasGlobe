@@ -1,0 +1,6 @@
+adcFunctions.c:28:6:config_ext_channel_ADC	16	static
+adcFunctions.c:46:10:r_single_ext_channel_ADC	24	static
+adcFunctions.c:64:6:HAL_ADC_ConvCpltCallback	0	static
+adcFunctions.c:70:6:getADC	48	static
+adcFunctions.c:95:6:checkADC	16	static
+adcFunctions.c:104:6:calcValues	48	static

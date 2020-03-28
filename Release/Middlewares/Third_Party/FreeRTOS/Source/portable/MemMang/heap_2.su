@@ -1,0 +1,4 @@
+heap_2.c:118:7:pvPortMalloc	16	static
+heap_2.c:210:6:vPortFree	8	static
+heap_2.c:237:8:xPortGetFreeHeapSize	0	static
+heap_2.c:243:6:vPortInitialiseBlocks	0	static
